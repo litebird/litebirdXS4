@@ -38,4 +38,3 @@ for simulation_type in sims:
             )
 
         subprocess.run(["sbatch", f"jobs/{filename}"])
-        1/0
