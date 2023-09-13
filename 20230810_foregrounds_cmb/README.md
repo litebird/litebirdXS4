@@ -100,6 +100,25 @@ They are in the same folder and have the same naming convention.
 Most useful metadata is available in the FITS header of the HEALPix maps, for example:
 
 ```
+TUNIT3  = 'uK_CMB  '                                                            
+PIXTYPE = 'HEALPIX '           / HEALPIX pixelisation                           
+ORDERING= 'NESTED  '           / Pixel ordering scheme, either RING or NESTED   
+COORDSYS= 'C       '           / Ecliptic, Galactic or Celestial (equatorial)   
+EXTNAME = 'xtension'           / name of this binary table extension            
+NSIDE   =                  512 / Resolution parameter of HEALPIX                
+FIRSTPIX=                    0 / First pixel # (0 based)                        
+LASTPIX =              3145727 / Last pixel # (0 based)                         
+INDXSCHM= 'IMPLICIT'           / Indexing: IMPLICIT or EXPLICIT                 
+OBJECT  = 'FULLSKY '           / Sky coverage, either FULLSKY or PARTIAL        
+TELESCOP= 'M1      '                                                            
+BAND    = '140     '                                                            
+TAG     = 'cib_cib1'                                                            
+NUM     =                    0                                                  
+ELL_MAX =                 1280                                                  
+NSPLITS =                    1                                                  
+SPLIT   =                    1                                                  
+PYSMVERS= '3.4.0b9 '                                                            
+MAPSIMSV= '2.6.1   '                                                            
 ```
 
 ## Model execution
