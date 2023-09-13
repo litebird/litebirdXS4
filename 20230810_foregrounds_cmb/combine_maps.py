@@ -52,15 +52,21 @@ for output_content, components in all_combined.items():
         except KeyError:
             print(row["band"])
         filename_template = config["output_filename_template"].format(
-            telescope=row["telescope"], band=row["band"], nside=row["nside"]
+            tag="{tag}",
+            telescope=row["telescope"],
+            band=row["band"],
+            nside=row["nside"],
         )
-        output_filename = filename_template.format(
-            tag=output_content,
+        output_filename = os.path.join(
+            output_folder.format(tag=output_content),
+            filename_template.format(
+                tag=output_content,
+            ),
         )
         if os.path.exists(output_filename):
             print("skip", output_filename)
         else:
-            combined_map = np.zeros((3, hp.nside2npix(nside)), dtype=np.float64)
+            combined_map = np.zeros((3, hp.nside2npix(row["nside"])), dtype=np.float64)
             for content in components:
                 print(content)
                 sign = 1
@@ -70,7 +76,7 @@ for output_content, components in all_combined.items():
                 if content == "dipole":
                     filename = os.path.join(
                         output_folder.format(tag=content),
-                        f"dipole_uKCMB_nside{row['nside']}.fits",
+                        f"cmb_solar_dipole_uKCMB_nside{row['nside']}.fits",
                     )
                 else:
                     filename = os.path.join(output_folder, filename_template).format(
