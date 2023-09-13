@@ -1,9 +1,11 @@
 # Sky signal simulation verification
 
+Verification is just done on the maps in Equatorial coordinates
+
 ## Map based verification
 
-[Verify CO Lines `co1` `co3` notebook](./verify_CO.ipynb)
-[Verify Radio Galaxies `rg1` notebook](./verify_radio.ipynb)
+* [Verify CO Lines `co1` `co3` notebook](./verify_CO.ipynb)
+* [Verify Radio Galaxies `rg1` notebook](./verify_radio.ipynb)
 
 ## Power spectra
 
