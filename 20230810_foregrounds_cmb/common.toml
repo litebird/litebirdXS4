@@ -1,9 +1,9 @@
 lmax_over_nside = 2.5
 healpix = true
 car = false
-output_folder = "output/{tag}"
+output_folder = "output/equatorial/{tag}"
 output_filename_template= "litebird_{tag}_uKCMB_{telescope}-{band}_nside{nside}.fits"
 unit = "uK_CMB"
 num = 0
-output_reference_frame = "G"
+output_reference_frame = "C"
 instrument_parameters = "../litebirdXS4-private/instrument_model_20230614/litebird_instrument_model.tbl"
