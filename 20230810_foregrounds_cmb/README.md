@@ -70,7 +70,7 @@ Documentation reference:
 
 Maps are available in HEALPix pixelization. The resolution of the maps is 1024 for the highest frequency channels and 512 for the rest.
 
-Maps are available both in Equatorial and Galactic Coordinates, `uK_CMB` units, FITS format.
+Maps are available both in Equatorial and Galactic Coordinates in separate folders, `uK_CMB` units, FITS format.
 See [`common.toml`](common.toml) for the naming convention.
 
 Each of the 17 components is available separately, see the TOML files in this repository for the configuration used to run PySM for each component.
@@ -80,6 +80,7 @@ Each of the 17 components is available separately, see the TOML files in this re
     /global/cfs/cdirs/cmbs4xlb/v1/fg/lb
 
 You need to be in the NERSC `cmbs4xlb` group to access the files.
+The disk space taken by the maps are 27 GB for each of the 2 reference frames.
 
 ## Combined maps
 
