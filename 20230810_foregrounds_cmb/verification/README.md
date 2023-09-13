@@ -1,8 +1,9 @@
 # Sky signal simulation verification
 
-## CO Lines
+## Map based verification
 
-[Verify CO Lines notebook](verify_CO.ipynb)
+[Verify CO Lines `co1` `co3` notebook](./verify_CO.ipynb)
+[Verify Radio Galaxies `rg1` notebook](./verify_radio.ipynb)
 
 ## Power spectra
 
