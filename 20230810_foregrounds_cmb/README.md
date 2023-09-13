@@ -79,7 +79,6 @@ Each of the 17 components is available separately, see the TOML files in this re
 
 You need to be in the NERSC `cmbs4xlb` group to access the files.
 
-<!--
 ## Combined maps
 
 Also created a single set of combined maps:
@@ -93,7 +92,6 @@ Also created a single set of combined maps:
 See [`combine_maps.py`](./combine_maps.py) for details.
 
 They are in the same folder and have the same naming convention.
--->
 
 ## Metadata
 
