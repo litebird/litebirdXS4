@@ -33,7 +33,7 @@ The input and output instrument models are not public, they are available in the
 
 ```python
 from astropy import QTable
-imo = QTable.read("../litebirdXS4-private/instrument_model_20230614/       litebird_instrument_model.tbl", format="ascii.ipac" )
+imo = QTable.read("../litebirdXS4-private/instrument_model_20230614/litebird_instrument_model.tbl", format="ascii.ipac" )
 imo.add_index("tag")
 ```
 
