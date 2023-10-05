@@ -8,7 +8,7 @@
 ## Summary
 
 Full sky simulations for all LiteBIRD frequency channels of Galactic/Extragalactic foregrounds and CMB. The dataset includes Galactic foreground models at 3 different levels of complexity, the models have been selected by the Panexperiment Galactic Science group for common simulations across all CMB Experiments.
-The instrument model assumes Gaussian beams and top-hat bandpasses.
+The instrument model assumes Gaussian beams and top-hat bandpasses. Top-hat bandpasses are assumed to be flat in power units.
 
 ## Instrument model
 
