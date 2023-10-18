@@ -5,7 +5,10 @@
 import argparse
 import os, glob
 import numpy as np
-from . import cmbs
+import sys
+if os.curdir not in sys.path:
+    sys.path.insert(0, os.curdir)
+import cmbs
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='cmb export script')
