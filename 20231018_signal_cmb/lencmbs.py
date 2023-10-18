@@ -8,7 +8,7 @@ from psutil import cpu_count
 
 import numpy as np
 import healpy as hp
-from . import unlensed_ffp10
+import unlensed_ffp10
 
 from lenspyx.remapping import deflection, utils_geom
 from lenspyx import utils_hp
