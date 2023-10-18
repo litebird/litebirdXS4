@@ -15,19 +15,7 @@ if __name__ == '__main__':
     parser.add_argument('-imin', dest='imin', default=0, type=int, help='starting index)')
     parser.add_argument('-imax', dest='imax', default=-1, type=int, help='last index')
     args = parser.parse_args()
-    if 'SLURM_SUBMIT_DIR' in os.environ:
-        try:
-            from mpi4py import MPI
-            rank = MPI.COMM_WORLD.Get_rank()
-            size = MPI.COMM_WORLD.Get_size()
-            barrier = MPI.COMM_WORLD.Barrier
-            finalize = MPI.Finalize
-            print('mpi.py : rank %s in %s' % (rank, size))
-        except:
-            rank, size,  barrier, finalize = 0, 1, lambda: -1, lambda: -1
-            print('mpi.py: unable to import mpi4py\n')
-    else:
-        rank, size, barrier, finalize = 0, 1, lambda: -1, lambda: -1
+    rank, size, barrier, finalize = 0, 1, lambda: -1, lambda: -1
     for idx in range(args.imin, args.imax + 1)[rank::size]:
         fn = os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb', 'lcdm_teb_%04d.npy'%idx)
         if not os.path.exists(fn) and (0 <= idx <= 499):
