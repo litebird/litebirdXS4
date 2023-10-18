@@ -14,8 +14,10 @@ from lenspyx.remapping import deflection, utils_geom
 from lenspyx import utils_hp
 
 
-def build_lensalms(idx, lmax_len, beam_amin, numthreads=0):
-    unl_cmbs = unlensed_ffp10.cmb_unl_ffp10(aberration=(0., 0., 0.))
+def build_lensalms(idx, lmax_len, beam_amin, numthreads=0, aberration=None):
+    if aberration is None:
+        aberration =(0., 0., 0.)
+    unl_cmbs = unlensed_ffp10.cmb_unl_ffp10(aberration=aberration)
     dlm = unl_cmbs.get_sim_dlm(idx)
     lmax, mmax = unl_cmbs.lmax_unl, unl_cmbs.lmax_unl
 
