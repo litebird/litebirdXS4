@@ -1,3 +1,8 @@
+"""Lensed CMB generation module.
+
+    This uses unlensed FFP10 maps (lmax 5120), without aberation and fairly high accuracy parameters by default
+
+"""
 from __future__ import annotations
 from psutil import cpu_count
 
@@ -18,7 +23,7 @@ def build_lensalms(idx, lmax_len, beam_amin, numthreads=0):
     len_geom = utils_geom.Geom.get_thingauss_geometry(lmaxthingauss, 2)
     if numthreads <= 0:
         numthreads = cpu_count(logical=False)
-    ffi = deflection(len_geom, dlm, mmax, epsilon=1e-7, numthreads=numthreads)
+    ffi = deflection(len_geom, dlm, mmax, epsilon=1e-10, numthreads=numthreads)
 
     mmax_len = lmax_len
     len_tlm =  ffi.lensgclm(unl_cmbs.get_sim_tlm(idx), mmax, 0, lmax_len, mmax_len)

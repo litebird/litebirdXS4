@@ -8,7 +8,7 @@ import numpy as np
 import sys
 if os.curdir not in sys.path:
     sys.path.insert(0, os.curdir)
-import cmbs
+import lencmbs
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='cmb export script')
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     for idx in range(args.imin, args.imax + 1)[rank::size]:
         fn = os.path.join('global/cfs/cdirs/cmbs4xlb/v1/cmb', 'lcdm_teb_%03d.npy'%idx)
         if not os.path.exists(fn) and (0 <= idx <= 499):
-            t, eb = cmbs.build_lensalms(idx, 4096, 0.)
+            t, eb = lencmbs.build_lensalms(idx, 4096, 0.)
             np.save(np.array([t, eb[0], eb[1]]))
     barrier()
     if rank == 0:
