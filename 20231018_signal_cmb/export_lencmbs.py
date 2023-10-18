@@ -29,7 +29,7 @@ if __name__ == '__main__':
     else:
         rank, size, barrier, finalize = 0, 1, lambda: -1, lambda: -1
     for idx in range(args.imin, args.imax + 1)[rank::size]:
-        fn = os.path.join('global/cfs/cdirs/cmbs4xlb/v1/cmb', 'lcdm_teb_%03d.npy'%idx)
+        fn = os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb', 'lcdm_teb_%03d.npy'%idx)
         if not os.path.exists(fn) and (0 <= idx <= 499):
             t0 = time.time()
             t, eb = lencmbs.build_lensalms(idx, 4096, 0.)
@@ -38,6 +38,6 @@ if __name__ == '__main__':
                 print(fn + 'done in %.1f sec'%(time.time() - t0))
     barrier()
     if rank == 0:
-        fns = glob.glob(os.path.join('global/cfs/cdirs/cmbs4xlb/v1/cmb', 'lcdm_teb_???.npy'))
+        fns = glob.glob(os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb',  'lcdm_teb_???.npy'))
         print('There are %s arrays on disk'%len(fns))
     finalize()
