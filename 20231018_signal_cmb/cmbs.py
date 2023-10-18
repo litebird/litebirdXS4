@@ -4,7 +4,6 @@ from psutil import cpu_count
 import numpy as np
 import healpy as hp
 from . import unlensed_ffp10
-from litebirdxs4 import instrument_models as config
 
 from lenspyx.remapping import deflection, utils_geom
 from lenspyx import utils_hp
@@ -39,10 +38,13 @@ def build_lensalms(idx, lmax_len, beam_amin, numthreads=0):
 
 
 def get_LiteBird_cmbalms(idx, freq:int or str):
-    return _build_lensalms(idx, config.LiteBird_lmaxlen[int(freq)], config.LiteBird_beams[int(freq)])
+    pass
+    #return build_lensalms(idx, config.LiteBird_lmaxlen[int(freq)], config.LiteBird_beams[int(freq)])
 
 def get_S4LAT_cmbalms(idx, freq:int or str):
-    return _build_lensalms(idx, config.S4LAT_lmaxlen[int(freq)], config.S4LAT_beams[int(freq)])
+    pass
+    #return build_lensalms(idx, config.S4LAT_lmaxlen[int(freq)], config.S4LAT_beams[int(freq)])
 
 def get_S4SAT_cmbalms(idx, freq:int or str):
-    return _build_lensalms(idx, config.S4SAT_lmaxlen[int(freq)], config.S4SAT_beams[int(freq)])
+    pass
+    #return build_lensalms(idx, config.S4SAT_lmaxlen[int(freq)], config.S4SAT_beams[int(freq)])
