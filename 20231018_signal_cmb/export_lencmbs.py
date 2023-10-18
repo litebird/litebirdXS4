@@ -33,7 +33,7 @@ if __name__ == '__main__':
         if not os.path.exists(fn) and (0 <= idx <= 499):
             t0 = time.time()
             t, eb = lencmbs.build_lensalms(idx, 4096, 0.)
-            np.save(np.array([t, eb[0], eb[1]]))
+            np.save(fn, np.array([t, eb[0], eb[1]]))
             if rank == 0:
                 print(fn + 'done in %.1f sec'%(time.time() - t0))
     barrier()
