@@ -25,7 +25,7 @@ if __name__ == '__main__':
             if rank == 0:
                 print(fn + ' done in %.1f sec'%(time.time() - t0))
         fn_klm = os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb', 'lcdm_k_%04d.npy'%idx)
-        if not os.path.exists(fn) and (0 <= idx <= 499):
+        if not os.path.exists(fn_klm) and (0 <= idx <= 499):
             klm = lencmbs.build_lensalms(idx, 4096, 0., klm_only=True)
             np.save(fn_klm, klm)
     barrier()
