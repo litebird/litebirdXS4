@@ -20,7 +20,7 @@ def build_lensalms(idx, lmax_len, beam_amin, numthreads=0, aberration=None, klm_
     unl_cmbs = unlensed_ffp10.cmb_unl_ffp10(aberration=aberration)
     dlm = unl_cmbs.get_sim_dlm(idx)
     if klm_only:
-        Ls = utils_hp.Alm.getlmax(dlm.size, None)
+        Ls = np.arange(utils_hp.Alm.getlmax(dlm.size, None) + 1, dtype=float)
         d2k = np.sqrt(Ls * (Ls + 1)) * 0.5
         utils_hp.almxfl(dlm, d2k, None, inplace=True)
         return dlm
