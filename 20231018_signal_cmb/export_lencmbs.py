@@ -24,8 +24,15 @@ if __name__ == '__main__':
             np.save(fn, np.array([t, eb[0], eb[1]]))
             if rank == 0:
                 print(fn + ' done in %.1f sec'%(time.time() - t0))
+        fn_klm = os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb', 'lcdm_k_%04d.npy'%idx)
+        if not os.path.exists(fn) and (0 <= idx <= 499):
+            klm = lencmbs.build_lensalms(idx, 4096, 0., klm_only=True)
+            np.save(fn_klm, klm)
     barrier()
     if rank == 0:
         fns = glob.glob(os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb',  'lcdm_teb_????.npy'))
-        print('There are %s arrays on disk'%len(fns))
+        print('There are %s CMB arrays on disk'%len(fns))
+    if rank == 0:
+        fns = glob.glob(os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb',  'lcdm_k_????.npy'))
+        print('There are %s klm arrays on disk'%len(fns))
     finalize()

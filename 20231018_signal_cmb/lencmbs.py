@@ -14,13 +14,18 @@ from lenspyx.remapping import deflection, utils_geom
 from lenspyx import utils_hp
 
 
-def build_lensalms(idx, lmax_len, beam_amin, numthreads=0, aberration=None):
+def build_lensalms(idx, lmax_len, beam_amin, numthreads=0, aberration=None, klm_only=False):
     if aberration is None:
         aberration =(0., 0., 0.)
     unl_cmbs = unlensed_ffp10.cmb_unl_ffp10(aberration=aberration)
     dlm = unl_cmbs.get_sim_dlm(idx)
-    lmax, mmax = unl_cmbs.lmax_unl, unl_cmbs.lmax_unl
+    if klm_only:
+        Ls = utils_hp.Alm.getlmax(dlm.size, None)
+        d2k = np.sqrt(Ls * (Ls + 1)) * 0.5
+        utils_hp.almxfl(dlm, d2k, None, inplace=True)
+        return dlm
 
+    lmax, mmax = unl_cmbs.lmax_unl, unl_cmbs.lmax_unl
     lmaxthingauss = 3 * 5120
     len_geom = utils_geom.Geom.get_thingauss_geometry(lmaxthingauss, 2)
     if numthreads <= 0:
