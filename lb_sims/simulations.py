@@ -5,4 +5,11 @@ from .cmb import CMBlensed
 
 class LBmaps:
     
-    def __init__(self)
+    def __init__(self,nside):
+        pass
+    
+    def TQU(freq,idx):
+        pass
+    
+    def CompSep_TQU(idx):
+        pass
