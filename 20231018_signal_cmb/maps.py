@@ -20,17 +20,21 @@ path2cmb =  os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb', 'lcdm_teb_%04d.np
 try:
     s4 = QTable.read(path2s4, format="ascii.ipac" )
     s4.add_index("band")
+except:
+    print('maps.py: could not read CMB-S4 instrument model at ' + path2s4)
+    s4 = None
+try:
     lb =  QTable.read(path2lb, format="ascii.ipac" )
     lb.add_index("tag")
 except:
-    print('maps.py: could not read instrument models')
-    s4, lb = None, None
+    print('maps.py: could not read LiteBird instrument model at ' + path2lb)
+    lb = None
 def _build_maps(idx, beam_amin: float, nside:int):
     assert os.path.exists(path2cmb%idx), 'cmb alms not found at ' + path2cmb%idx
     lmax = 4096
 
     # Builds pixel and beam:
-    bl_T, bl_E, bl_B, _ = hp.gauss_beam(beam_amin/ 180 / 60 * np.pi, pol=True, lmax=lmax)
+    bl_T, bl_E, bl_B, _ = hp.gauss_beam(beam_amin/ 180 / 60 * np.pi, pol=True, lmax=lmax).T
     pw_T, pw_P = hp.pixwin(nside, lmax=lmax, pol=True)
 
     # load lencmbs and apply the transfer function
