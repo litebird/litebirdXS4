@@ -1,5 +1,6 @@
-"""This module builds the CMB signal-only maps from the stored lensed alms and instrument models of s4 and litebird
+"""This module builds the CMB signal-only maps from the stored lensed alms and instrument models of s4 and litebird.
 
+    maps in uK
 
  """
 from __future__ import annotations
@@ -59,11 +60,11 @@ def get_s4_map(band: str, idx:int, job='TQU'):
 
         band(str): s4 channel (e.g. 'SAT_f030')
         idx(int): simulation index
-        job(str, optional): one of 'TQU' (default), 'T' or 'QU' for temperature-only, pol-only, or all three maps
+        job(str, optional): one of 'T', 'QU' or 'TQU' (default), for temperature-only, pol-only, or all three maps
 
         returns:
             numpy array of shape (ncomp, npix), with ncomp set by 'job' and npix by the nside of the instrument model
-
+            CMB maps in uK
 
      """
     assert band in list(s4['band']), ('possible bands: ', list(s4['band']))
@@ -77,11 +78,11 @@ def get_lb_map(band: str, idx: int, job='TQU'):
 
         band(str): litebird channel (e.g. 'L1-060')
         idx(int): simulation index
-        job(str, optional): one of 'TQU' (default), 'T' or 'QU' for temperature-only, pol-only, or all three maps
+        job(str, optional): one of 'T', 'QU' or 'TQU' (default), for temperature-only, pol-only, or all three maps
 
         returns:
             numpy array of shape (ncomp, npix), with ncomp set by 'job' and npix by the nside of the instrument model
-
+            CMB maps in uK
 
      """
     assert band in list(lb['tag']), ('possible bands: ', list(lb['tag']))
