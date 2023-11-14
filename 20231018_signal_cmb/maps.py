@@ -54,27 +54,37 @@ def _build_maps(idx, beam_amin: float, nside:int, job='TQU'):
         maps['T' in job.upper():] = hp.alm2map_spin(teb[1:], nside, 2, lmax)
     return maps
 
-def get_s4_map(band: str, idx:int):
+def get_s4_map(band: str, idx:int, job='TQU'):
     """Returns CMB-S4 simulated T, Q and U maps for the requested s4 band
 
         band(str): s4 channel (e.g. 'SAT_f030')
         idx(int): simulation index
+        job(str, optional): one of 'TQU' (default), 'T' or 'QU' for temperature-only, pol-only, or all three maps
+
+        returns:
+            numpy array of shape (ncomp, npix), with ncomp set by 'job' and npix by the nside of the instrument model
+
 
      """
     assert band in list(s4['band']), ('possible bands: ', list(s4['band']))
-    beam, nside, lmax = s4.loc[band]['fwhm'], s4.loc[band]['nside'], 4096
+    beam, nside = s4.loc[band]['fwhm'], s4.loc[band]['nside']
     assert beam.unit == units.Unit('arcmin')
-    return _build_maps(idx, beam.value, nside)
+    return _build_maps(idx, beam.value, nside, job=job)
 
 
-def get_lb_map(band: str, idx: int):
+def get_lb_map(band: str, idx: int, job='TQU'):
     """Returns LiteBird simulated T, Q and U maps for the requested s4 band
 
         band(str): litebird channel (e.g. 'L1-060')
         idx(int): simulation index
+        job(str, optional): one of 'TQU' (default), 'T' or 'QU' for temperature-only, pol-only, or all three maps
+
+        returns:
+            numpy array of shape (ncomp, npix), with ncomp set by 'job' and npix by the nside of the instrument model
+
 
      """
     assert band in list(lb['tag']), ('possible bands: ', list(lb['tag']))
-    beam, nside= lb.loc[band]['fwhm'], lb.loc[band]['nside']
+    beam, nside = lb.loc[band]['fwhm'], lb.loc[band]['nside']
     assert beam.unit == units.Unit('arcmin')
-    return _build_maps(idx, beam.value, nside)
+    return _build_maps(idx, beam.value, nside, job=job)
