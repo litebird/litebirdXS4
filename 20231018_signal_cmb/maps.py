@@ -56,7 +56,7 @@ def _build_maps(idx, beam_amin: float, nside:int, job='TQU'):
     return maps
 
 def get_s4_map(band: str, idx:int, job='TQU'):
-    """Returns CMB-S4 simulated T, Q and U maps for the requested s4 band
+    """Returns CMB-S4 simulated T, Q and U maps for the requested channel
 
         band(str): s4 channel (e.g. 'SAT_f030')
         idx(int): simulation index
@@ -74,7 +74,7 @@ def get_s4_map(band: str, idx:int, job='TQU'):
 
 
 def get_lb_map(band: str, idx: int, job='TQU'):
-    """Returns LiteBird simulated T, Q and U maps for the requested s4 band
+    """Returns LiteBird simulated T, Q and U maps for the requested channel
 
         band(str): litebird channel (e.g. 'L1-060')
         idx(int): simulation index
