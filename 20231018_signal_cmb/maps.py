@@ -12,8 +12,9 @@ from astropy import units
 
 
 # Paths to instrument models:
-path2s4 = os.path.join(dirn(dirn(__file__)), 's4mapbasedsims', '202305_dc0', 'instrument_model', 'cmbs4_instrument_model.tbl')
-path2lb = os.path.join(dirn(dirn(__file__)), 'litebirdXS4-private', 'instrument_model_20230614', 'litebird_instrument_model.tbl')
+fn = os.path.abspath(__file__)
+path2s4 = os.path.join(dirn(dirn(fn)), 's4mapbasedsims', '202305_dc0', 'instrument_model', 'cmbs4_instrument_model.tbl')
+path2lb = os.path.join(dirn(dirn(fn)), 'litebirdXS4-private', 'instrument_model_20230614', 'litebird_instrument_model.tbl')
 path2cmb =  os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb', 'lcdm_teb_%04d.npy')
 
 try:
@@ -23,7 +24,7 @@ try:
     lb.add_index("tag")
 except:
     print('maps.py: could not read instrument models')
-
+    s4, lb = None, None
 def _build_maps(idx, beam_amin: float, nside:int):
     assert os.path.exists(path2cmb%idx), 'cmb alms not found at ' + path2cmb%idx
     lmax = 4096
