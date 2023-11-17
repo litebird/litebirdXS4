@@ -8,7 +8,8 @@ For a reference, we also save their signal auto/cross spectra which are used to 
 ## Description of simulation
 For the LiteBIRD delensing study, in addition to the S4 CMB lensing map, we plan to explore the importance of the external mass tracers, i.e., 
 the CIB and galaxies. In this project, we follow the strategy of https://arxiv.org/abs/2110.09730 where we simply generate these external tracers 
-as Gaussian random fields drawn from auto and cross-angular power spectra between CMB-lensing, CIB, and galaxies, with the Gaussian kappa provided in the above. 
+as Gaussian random fields drawn from auto and cross-angular power spectra between CMB-lensing, CIB, and galaxies, 
+with the Gaussian kappa in /global/cfs/cdirs/cmbs4xlb/v1/cmb/. 
 
  * The plan here is to assume a single CIB map that mimics the Planck GNILC CIB map over ~ 40% of the sky. CIB is simply the post-component-separated map and 
  a single full-sky map and the model is taken from Appendix D of https://arxiv.org/abs/1502.01591 (or https://arxiv.org/abs/1705.02332). 
