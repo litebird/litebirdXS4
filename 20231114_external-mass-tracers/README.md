@@ -40,7 +40,9 @@ Currently, we generate the S4 lensing map as a sum of the input lensing converge
 This lensing map is provided just for the debugging purpose. 
 LiteBIRD CMB lensing map generated in the same way as the S4 lensing map is also provided for a reference. 
 
-To read these data, please import pickle and use e.g. `pickle.load(open({path to file},"rb"))`.
+To read these data, please import pickle and use e.g. `pickle.load(open({path to file},"rb"))`. 
+Note that this file format is requested by the current delensing pipeline of LiteBIRD, which partially uses Fortran code in addition to Python. 
+The pipeline assumes a file in the pickle format that contains the array of the harmonic coefficients in the Healpix format rather than the Healpy one. 
 
 ## Location of the spectra
 
