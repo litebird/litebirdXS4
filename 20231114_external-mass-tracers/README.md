@@ -43,6 +43,8 @@ LiteBIRD CMB lensing map generated in the same way as the S4 lensing map is also
 To read these data, please import pickle and use e.g. `pickle.load(open({path to file},"rb"))`. 
 Note that this file format is requested by the current delensing pipeline of LiteBIRD, which partially uses Fortran code in addition to Python. 
 The pipeline assumes a file in the pickle format that contains the array of the harmonic coefficients in the Healpix format rather than the Healpy one. 
+In this format, the harmonic coefficients are given as a 2D array where the first and second indexes are ell (0<=ell<=lmax) and m (0<=m<=lmax), respectively. 
+For a given ell and m, the corresponding index for array in the healpy is obtained with healpy.sphtfunc.Alm.getidx(lmax,l,m). 
 
 ## Location of the spectra
 
