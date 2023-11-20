@@ -18,8 +18,8 @@ with the Gaussian kappa in /global/cfs/cdirs/cmbs4xlb/v1/cmb/.
    Note that our simulated CIB map differs from the PySM CIB map which is based on Websky, e.g., in terms of the lack of non-Gaussianity. 
  * The full-sky number density fluctuations of galaxies per redshift bin are prepared assuming LSST-like and Euclid-like galaxy surveys.
    Specifications for the redshift distribution of galaxies, number density of galaxies per arcminutes squared,
-   and galaxy linear bias are taken from http://arxiv.org/abs/1705.02332 for LSST, and https://arxiv.org/abs/1606.00180 for Euclid.
-   The number of redshift bins for each surveys is chosen as five, where the number density of galaxies are equal for all bins,
+   and galaxy linear bias is taken from http://arxiv.org/abs/1705.02332 for LSST, and https://arxiv.org/abs/1606.00180 for Euclid.
+   The number of redshift bins for each survey is chosen as five ([0, 0.8, 1.5, 2.0, 2.5, 6.] for Euclid, and [0, 0.5, 1.0, 2.0, 3.0, 6.] for LSST), where the number density of galaxies are equal for all bins,
    which is optimal for the LiteBIRD delensing found by an investigation of the LiteBIRD delensing forecast.
    The shot noise as a random Gaussian field is added to the map at each redshift bin. 
 
