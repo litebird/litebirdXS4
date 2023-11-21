@@ -30,3 +30,7 @@ p_lb_noise  = '/global/cfs/cdirs/cmbs4xlb/v1/noise/lb/'
 wn_map_path = p_lb_noise+channel+'/'+channel+'_wn_map_0512_mc_'+str(sim).zfill(4)+'.fits'
 wn_map, header = hp.read_map(wn_map_path, field=[0,1,2], h=True)
 ```
+
+There are also covariance matrices of the form `LB_{telescope}_{channel}_covmat_wn.npy`
+where `{telescope} = LFT, MFT, HFT`
+
