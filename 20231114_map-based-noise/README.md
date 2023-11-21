@@ -2,7 +2,7 @@ LiteBIRD map based simulations of noise
 =======================================
 
 ## Summary
-500 realizations of white noise per frequency channel for the LiteBIRD satellite.
+500 realizations of white noise per frequency channel for the LiteBIRD satellite for I, Q, U.
 unit = `K_CMB`, nside = 512, coord = Galactic
 
 ## Description of simulation
@@ -22,7 +22,7 @@ Inside each folder `/global/cfs/cdirs/cmbs4xlb/v1/noise/lb/{channel}` the typica
 `{channel}_wn_map_0512_mc_{realization number}.fits`
 where `{realization number} = 0000, ..., 0499`
 
-How to read the n-th montecarlo realization:
+How to read the n-th Monte Carlo realization of I, Q, U:
 ```
 sim     = 0        # which mc realization
 channel = 'H1-195' # reading channel H1-195
