@@ -12,4 +12,4 @@ for S4 and
 
 for LiteBird.
 
-See the last few cells of ipynbs/lencmb_verification.ipynb on how to use these
+See ipynbs/maps.ipynb on how to use these
