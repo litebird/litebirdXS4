@@ -1,6 +1,6 @@
 [submodule "litebirdXS4-private"]
 	path = litebirdXS4-private
 	url = git@github.com:litebird/litebirdXS4-private.git
-[submodule "20231018_signal_cmb/s4mapbasedsims"]
-	path = 20231018_signal_cmb/s4mapbasedsims
+[submodule "s4mapbasedsims"]
+	path = s4mapbasedsims
 	url = https://github.com/CMB-S4/s4mapbasedsims.git

@@ -14,7 +14,7 @@ from astropy import units
 
 # Paths to instrument models:
 fn = os.path.abspath(__file__)
-path2s4 = os.path.join('s4mapbasedsims', '202305_dc0', 'instrument_model', 'cmbs4_instrument_model.tbl')
+path2s4 = os.path.join(dirn(dirn(fn)), 's4mapbasedsims', '202305_dc0', 'instrument_model', 'cmbs4_instrument_model.tbl')
 path2lb = os.path.join(dirn(dirn(fn)), 'litebirdXS4-private', 'instrument_model_20230614', 'litebird_instrument_model.tbl')
 path2cmb =  os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb', 'lcdm_teb_%04d.npy')
 
