@@ -1,3 +1,4 @@
+"""Module that produces simple noise maps for s4 Chile wide survey"""
 import glob
 import os
 import healpy as hp
@@ -8,7 +9,6 @@ from lenspyx.utils_hp import Alm, almxfl, gauss_beam
 from lenspyx.remapping.utils_geom import Geom
 from lenspyx.utils import cli
 from scipy.interpolate import UnivariateSpline as spl
-from numpy.random import default_rng
 from psutil import cpu_count
 
 from lenspyx.utils import timer
@@ -215,7 +215,7 @@ if __name__ == '__main__':
         l, a = get_lknee_a('P', f)
         print(r' @ %03d GHz P %03d  %.2f'%(f, l, a))
 
-    mcs = np.arange(2, dtype=int)
+    mcs = np.arange(100, dtype=int)
     cache = cachers.cacher_npy('/global/cfs/cdirs/cmbs4xlb/v1/noise/s4/chwide')
     seed = np.random.SeedSequence()
     entropy = seed.entropy
