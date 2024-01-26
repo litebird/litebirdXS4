@@ -17,17 +17,17 @@ path = '/global/cfs/cdirs/cmbs4xlb/v1/noise/s4/chwide/%03d_tqu_%04d.npy'
 class noise:
     @staticmethod
     def get_sim_tmap(freq, idx):
-        m = np.full( (12 * 2048 ** 2), UNSEEN)
+        m = np.full( (12 * 2048 ** 2), UNSEEN, dtype=np.float32)
         m[pix_min: pix_min + npix] = np.load(path%(freq, idx))[0]
         return m
     @staticmethod
     def get_sim_qumap(freq, idx):
-        m = np.full((2, 12 * 2048 ** 2), UNSEEN)
+        m = np.full((2, 12 * 2048 ** 2), UNSEEN, dtype=np.float32)
         m[:, pix_min:pix_min + npix] = np.load(path%(freq, idx))[1:]
         return m
     @staticmethod
     def get_sim_tqumap(freq, idx):
-        m = np.full((3, 12 * 2048 ** 2), UNSEEN)
+        m = np.full((3, 12 * 2048 ** 2), UNSEEN, dtype=np.float32)
         m[:, pix_min:pix_min + npix] = np.load(path%(freq, idx))
         return m
 
