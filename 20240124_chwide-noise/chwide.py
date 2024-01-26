@@ -156,7 +156,7 @@ def build_sims(freq, mcs:np.ndarray[int], rng:np.random.Generator, cache:cachers
     rescal_atm = 0.8 * cli(get_rhits(freq, nside_out=nside_out))
     nlev_I = get_nlev_ukamin(freq, 'II', thres=2)
     nlev_P = np.sqrt(0.5 * (get_nlev_ukamin(freq, 'QQ', thres=2) ** 2 + get_nlev_ukamin(freq, 'UU', thres=2) ** 2 ))
-    print('noise levels for atm noise %.3f, %.3f'%(nlev_I, nlev_P))
+    print('noise levels for atm noise %.3f, %.3f at %03d GHz'%(nlev_I, nlev_P, freq))
     # Ignoring IQ and IU cov
     rdet_P = s_QQ ** 2 * s_UU ** 2 - s2_QU ** 2
     nz = rdet_P.nonzero()
@@ -218,5 +218,7 @@ if __name__ == '__main__':
     mcs = np.arange(5, dtype=int)
     cache = cachers.cacher_npy('/global/cfs/cdirs/cmbs4xlb/v1/noise/chwide')
     rng = np.random.default_rng()
+    nthreads = int(os.environ.get('OMP_NUM_THREADS', cpu_count(logical=False)))
+    print('Using %s threads'%nthreads)
     for freq in freqs:
         build_sims(freq, mcs, rng, cache)
