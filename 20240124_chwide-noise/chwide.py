@@ -220,6 +220,7 @@ if __name__ == '__main__':
     seed = np.random.SeedSequence()
     entropy = seed.entropy
     print('Entropy for this run, mcs %s to %s'%(mcs[0], mcs[-1]))
+    print(entropy)
     rng = np.random.default_rng(seed)
     nthreads = int(os.environ.get('OMP_NUM_THREADS', cpu_count(logical=False)))
     print('Using %s threads'%nthreads)
