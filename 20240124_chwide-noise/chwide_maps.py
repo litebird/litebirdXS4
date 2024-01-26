@@ -12,7 +12,7 @@ except ImportError:
 
 tht_min, tht_max = (64 / 180 * np.pi, 155. / 180 * np.pi)
 pix_min, npix = 14135296, 33839732
-path = '/global/cfs/cdirs/cmbs4xlb/v1/noise/chwide/%03d_tqu_%04d.npy'
+path = '/global/cfs/cdirs/cmbs4xlb/v1/noise/s4/chwide/%03d_tqu_%04d.npy'
 
 class noise:
     @staticmethod

@@ -216,7 +216,7 @@ if __name__ == '__main__':
         print(r' @ %03d GHz P %03d  %.2f'%(f, l, a))
 
     mcs = np.arange(2, dtype=int)
-    cache = cachers.cacher_npy('/global/cfs/cdirs/cmbs4xlb/v1/noise/chwide')
+    cache = cachers.cacher_npy('/global/cfs/cdirs/cmbs4xlb/v1/noise/s4/chwide')
     seed = np.random.SeedSequence()
     entropy = seed.entropy
     print('Entropy for this run, mcs %s to %s'%(mcs[0], mcs[-1]))
