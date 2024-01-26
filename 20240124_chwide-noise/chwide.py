@@ -199,7 +199,7 @@ def build_sims(freq, mcs:np.ndarray[int], rng:np.random.Generator, cache:cachers
             tqumap[np.where(tqumap == 0.)] = UNSEEN
             tim.close('unseening')
             print(tim)
-            cache.cache(fn, tqumap[:, npix: pix_min + npix])
+            cache.cache(fn, tqumap[:, pix_min: pix_min + npix])
     return cache
 
 if __name__ == '__main__':
@@ -215,7 +215,7 @@ if __name__ == '__main__':
         l, a = get_lknee_a('P', f)
         print(r' @ %03d GHz P %03d  %.2f'%(f, l, a))
 
-    mcs = np.arange(5, dtype=int)
+    mcs = np.arange(2, dtype=int)
     cache = cachers.cacher_npy('/global/cfs/cdirs/cmbs4xlb/v1/noise/chwide')
     seed = np.random.SeedSequence()
     entropy = seed.entropy
