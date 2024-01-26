@@ -217,7 +217,10 @@ if __name__ == '__main__':
 
     mcs = np.arange(5, dtype=int)
     cache = cachers.cacher_npy('/global/cfs/cdirs/cmbs4xlb/v1/noise/chwide')
-    rng = np.random.default_rng()
+    seed = np.random.SeedSequence()
+    entropy = seed.entropy
+    print('Entropy for this run, mcs %s to %s'%(mcs[0], mcs[-1]))
+    rng = np.random.default_rng(seed)
     nthreads = int(os.environ.get('OMP_NUM_THREADS', cpu_count(logical=False)))
     print('Using %s threads'%nthreads)
     for freq in freqs:
