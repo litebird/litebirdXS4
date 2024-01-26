@@ -172,7 +172,7 @@ def build_sims(freq, mcs:np.ndarray[int], rng:np.random.Generator, cache:cachers
     tim.close('one-off')
 
     for idx in mcs:
-        fn = 'tqu_%04d'%int(idx)
+        fn = '%03d_tqu_%04d'%(freq, int(idx))
         if not cache.is_cached(fn):
             tim.start('gen')
             tlm = _syn_alm(rng, cl_knee_I * np.sqrt(_facknee))
@@ -214,3 +214,9 @@ if __name__ == '__main__':
     for f in freqs:
         l, a = get_lknee_a('P', f)
         print(r' @ %03d GHz P %03d  %.2f'%(f, l, a))
+
+    mcs = np.arange(100, dtype=int)
+    cache = cachers.cacher_npy('/global/cfs/cdirs/cmbs4xlb/v1/noise/chwide')
+    rng = np.random.default_rng()
+    for freq in freqs:
+        build_sims(freq, mcs, rng, cache)
