@@ -175,7 +175,7 @@ def build_sims(freq, mcs:np.ndarray[int], rng:np.random.Generator, cache:cachers
         fn = '%03d_tqu_%04d'%(freq, int(idx))
         if not cache.is_cached(fn):
             tim.start('gen')
-            tlm = _syn_alm(rng, cl_knee_I * np.sqrt(_facknee))
+            tlm = _syn_alm(rng, cl_knee_I * np.sqrt(_facknee)* (np.arange(lmax_atm + 1) >= 1))
             eblm = np.zeros((2, Alm.getsize(lmax_atm, lmax_atm)), dtype=complex)
             eblm[0] = _syn_alm(rng, (cl_knee_P * np.sqrt(_facknee)) * (np.arange(lmax_atm + 1) >= 2))
             eblm[1] = _syn_alm(rng, (cl_knee_P * np.sqrt(_facknee)) * (np.arange(lmax_atm + 1) >= 2))
