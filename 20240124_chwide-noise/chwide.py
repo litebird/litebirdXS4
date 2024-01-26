@@ -199,7 +199,7 @@ def build_sims(freq, mcs:np.ndarray[int], rng:np.random.Generator, cache:cachers
             tqumap[np.where(tqumap == 0.)] = UNSEEN
             tim.close('unseening')
             print(tim)
-            cache.cache(fn, tqumap[:, pix_min: pix_min + npix])
+            cache.cache(fn, tqumap[:, pix_min: pix_min + npix].astype(np.float32))
     return cache
 
 if __name__ == '__main__':
