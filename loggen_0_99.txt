@@ -1,0 +1,65 @@
+II @ 030 GHz 14.56 muK-amin
+II @ 040 GHz 9.55 muK-amin
+II @ 090 GHz 1.54 muK-amin
+II @ 150 GHz 1.54 muK-amin
+II @ 220 GHz 5.15 muK-amin
+II @ 280 GHz 15.32 muK-amin
+QQ @ 030 GHz 20.76 muK-amin
+QQ @ 040 GHz 13.62 muK-amin
+QQ @ 090 GHz 2.17 muK-amin
+QQ @ 150 GHz 2.18 muK-amin
+QQ @ 220 GHz 7.28 muK-amin
+QQ @ 280 GHz 21.64 muK-amin
+UU @ 030 GHz 20.42 muK-amin
+UU @ 040 GHz 13.37 muK-amin
+UU @ 090 GHz 2.18 muK-amin
+UU @ 150 GHz 2.19 muK-amin
+UU @ 220 GHz 7.31 muK-amin
+UU @ 280 GHz 21.73 muK-amin
+lknee and alpha (I) :
+ @ 030 GHz II  406  3.50
+ @ 040 GHz II  391  3.50
+ @ 090 GHz II  1932  3.50
+ @ 150 GHz II  3017  3.50
+ @ 220 GHz II  6274  3.50
+ @ 280 GHz II  6792  3.50
+rlknee and alpha (P) :
+ @ 030 GHz P 700  1.40
+ @ 040 GHz P 700  1.40
+ @ 090 GHz P 700  1.40
+ @ 150 GHz P 700  1.40
+ @ 220 GHz P 700  1.40
+ @ 280 GHz P 700  1.40
+Entropy for this run, mcs 0 to 99
+53092828793581210666818137132400191890
+Using 16 threads
+noise levels for atm noise 13.677, 19.341 at 030 GHz
+  one-off  :  [0:00:10.683459] (1.0%)
+  gen      :  [0:15:42.351430] (84.2%)
+  unseening:  [0:02:12.135766] (11.8%)
+  Total    :  [0:18:39.182538] d:h:m:s:mus
+noise levels for atm noise 8.956, 12.664 at 040 GHz
+  one-off  :  [0:00:10.175653] (0.9%)
+  gen      :  [0:15:30.467779] (84.1%)
+  unseening:  [0:02:12.739232] (12.0%)
+  Total    :  [0:18:26.439656] d:h:m:s:mus
+noise levels for atm noise 1.460, 2.064 at 090 GHz
+  one-off  :  [0:00:10.580311] (0.9%)
+  gen      :  [0:15:41.000971] (84.2%)
+  unseening:  [0:02:13.570710] (11.9%)
+  Total    :  [0:18:38.002078] d:h:m:s:mus
+noise levels for atm noise 1.463, 2.068 at 150 GHz
+  one-off  :  [0:00:10.578278] (1.0%)
+  gen      :  [0:15:18.977068] (84.3%)
+  unseening:  [0:02:09.036098] (11.8%)
+  Total    :  [0:18:10.544698] d:h:m:s:mus
+noise levels for atm noise 4.965, 7.024 at 220 GHz
+  one-off  :  [0:00:09.840306] (0.9%)
+  gen      :  [0:15:12.786521] (83.7%)
+  unseening:  [0:02:15.688537] (12.4%)
+  Total    :  [0:18:10.739298] d:h:m:s:mus
+noise levels for atm noise 14.760, 20.882 at 280 GHz
+  one-off  :  [0:00:10.288568] (0.9%)
+  gen      :  [0:15:26.269854] (83.2%)
+  unseening:  [0:02:17.429549] (12.3%)
+  Total    :  [0:18:32.965262] d:h:m:s:mus
