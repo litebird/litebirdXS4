@@ -30,10 +30,13 @@ try:
 except:
     print('maps.py: could not read LiteBird instrument model at ' + path2lb)
     lb = None
-def _build_maps(idx, beam_amin: float, nside:int, job='TQU'):
+def _build_maps(idx, beam_amin: float, nside:int, job='TQU',lmax=4096,coord=None):
     assert os.path.exists(path2cmb%idx), 'cmb alms not found at ' + path2cmb%idx
     assert job.upper() in ['T', 'QU', 'TQU']
-    lmax = 4096
+    if coord is not None:
+        assert type(coord) == list, 'coord should be a list of strings'
+        rot = hp.Rotator(coord=coord)
+        print('rotating maps to', coord)
 
     # Builds pixel and beam:
     bl_T, bl_E, bl_B, _ = hp.gauss_beam(beam_amin/ 180 / 60 * np.pi, pol=True, lmax=lmax).T
@@ -48,11 +51,15 @@ def _build_maps(idx, beam_amin: float, nside:int, job='TQU'):
     maps = np.empty((ncomp, hp.nside2npix(nside)), dtype=float)
     if 'T' in job.upper():
         hp.almxfl(teb[0], bl_T * pw_T, inplace=True)
-        maps[0] = hp.alm2map(teb[0], nside)
+        maps_ = hp.alm2map(teb[0], nside)
+        maps[0] = rot.rotate_map_pixel(maps_) if coord else maps_
+        del maps_
     if 'QU' in job.upper():
         hp.almxfl(teb[1], bl_E * pw_P, inplace=True)
         hp.almxfl(teb[2], bl_B * pw_P, inplace=True)
-        maps['T' in job.upper():] = hp.alm2map_spin(teb[1:], nside, 2, lmax)
+        maps_ = hp.alm2map(teb, nside)
+        maps['T' in job.upper():] = rot.rotate_map_pixel(maps_)[1:] if coord else maps_[1:]
+        del maps_
     return maps
 
 def get_s4_map(band: str, idx:int, job='TQU'):
@@ -73,7 +80,7 @@ def get_s4_map(band: str, idx:int, job='TQU'):
     return _build_maps(idx, beam.value, nside, job=job)
 
 
-def get_lb_map(band: str, idx: int, job='TQU'):
+def get_lb_map(band: str, idx: int, job='TQU',lmax=1024,coord=['C','G']):
     """Returns LiteBird simulated T, Q and U maps for the requested channel
 
         band(str): litebird channel (e.g. 'L1-060')
@@ -88,4 +95,4 @@ def get_lb_map(band: str, idx: int, job='TQU'):
     assert band in list(lb['tag']), ('possible bands: ', list(lb['tag']))
     beam, nside = lb.loc[band]['fwhm'], lb.loc[band]['nside']
     assert beam.unit == units.Unit('arcmin')
-    return _build_maps(idx, beam.value, nside, job=job)
+    return _build_maps(idx, beam.value, nside, job=job,lmax=lmax,coord=coord)
