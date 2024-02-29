@@ -3,6 +3,7 @@
     maps in uK
 
  """
+
 from __future__ import annotations
 import os
 from os.path import dirname as dirn
@@ -14,85 +15,126 @@ from astropy import units
 
 # Paths to instrument models:
 fn = os.path.abspath(__file__)
-path2s4 = os.path.join(dirn(dirn(fn)), 's4mapbasedsims', '202305_dc0', 'instrument_model', 'cmbs4_instrument_model.tbl')
-path2lb = os.path.join(dirn(dirn(fn)), 'litebirdXS4-private', 'instrument_model_20230614', 'litebird_instrument_model.tbl')
-path2cmb =  os.path.join(os.environ['CFS'], 'cmbs4xlb/v1/cmb', 'lcdm_teb_%04d.npy')
+path2s4 = os.path.join(
+    dirn(dirn(fn)),
+    "s4mapbasedsims",
+    "202305_dc0",
+    "instrument_model",
+    "cmbs4_instrument_model.tbl",
+)
+path2lb = os.path.join(
+    dirn(dirn(fn)),
+    "litebirdXS4-private",
+    "instrument_model_20230614",
+    "litebird_instrument_model.tbl",
+)
+path2cmb = os.path.join(os.environ["CFS"], "cmbs4xlb/v1/cmb", "lcdm_teb_%04d.npy")
 
 try:
-    s4 = QTable.read(path2s4, format="ascii.ipac" )
+    s4 = QTable.read(path2s4, format="ascii.ipac")
     s4.add_index("band")
 except:
-    print('maps.py: could not read CMB-S4 instrument model at ' + path2s4)
+    print("maps.py: could not read CMB-S4 instrument model at " + path2s4)
     s4 = None
 try:
-    lb =  QTable.read(path2lb, format="ascii.ipac" )
+    lb = QTable.read(path2lb, format="ascii.ipac")
     lb.add_index("tag")
 except:
-    print('maps.py: could not read LiteBird instrument model at ' + path2lb)
+    print("maps.py: could not read LiteBird instrument model at " + path2lb)
     lb = None
-def _build_maps(idx, beam_amin: float, nside:int, job='TQU',lmax=4096,coord=None):
-    assert os.path.exists(path2cmb%idx), 'cmb alms not found at ' + path2cmb%idx
-    assert job.upper() in ['T', 'QU', 'TQU']
-    if coord is not None:
-        assert type(coord) == list, 'coord should be a list of strings'
+
+
+def _build_maps(idx, beam_amin: float, nside: int, job="TQU", lmax=4096, coord=None):
+    """Returns CMB-S4/LiteBIRD simulated T, Q and U maps.
+
+    idx(int): simulation index
+    beam_amin(float): beam width in arcmin
+    nside(int): healpix nside of the instrument model
+    job(str, optional): one of 'T', 'QU' or 'TQU' (default), for temperature-only, pol-only, or all three maps
+    lmax(int, optional): maximum multipole of the alm (default 4096)
+    coord(list, optional): list of strings, one of 'C' or 'G' (default), for coordinate system of the output maps
+
+    returns:
+        numpy array of shape (ncomp, npix), with ncomp set by 'job' and npix by the nside of the instrument model
+        CMB maps in uK
+
+    """
+    assert os.path.exists(path2cmb % idx), "cmb alms not found at " + path2cmb % idx
+    assert job.upper() in ["T", "QU", "TQU"]
+    if coord:
+        assert type(coord) == list, "coord should be a list of strings"
         rot = hp.Rotator(coord=coord)
-        print('rotating maps to', coord)
 
     # Builds pixel and beam:
-    bl_T, bl_E, bl_B, _ = hp.gauss_beam(beam_amin/ 180 / 60 * np.pi, pol=True, lmax=lmax).T
+    bl_T, bl_E, bl_B, _ = hp.gauss_beam(
+        beam_amin / 180 / 60 * np.pi, pol=True, lmax=lmax
+    ).T
 
     # Additional window function ?
     # pw_T, pw_P = hp.pixwin(nside, lmax=lmax, pol=True)
-    pw_T, pw_P = 1., 1.
+    pw_T, pw_P = 1.0, 1.0
 
     # load lencmbs and apply the transfer function
-    teb = np.load(path2cmb%idx)
-    ncomp = ('T' in job.upper()) + 2 * ('QU' in job.upper())
+    teb = np.load(path2cmb % idx)
+    ncomp = ("T" in job.upper()) + 2 * ("QU" in job.upper())
     maps = np.empty((ncomp, hp.nside2npix(nside)), dtype=float)
-    if 'T' in job.upper():
+    if "T" in job.upper():
         hp.almxfl(teb[0], bl_T * pw_T, inplace=True)
-        maps_ = hp.alm2map(teb[0], nside)
-        maps[0] = rot.rotate_map_pixel(maps_) if coord else maps_
-        del maps_
-    if 'QU' in job.upper():
+        _map_ = hp.alm2map(teb[0], nside)
+        if coord:
+            _alm_ = hp.map2alm(_map_, lmax=lmax)
+            rot.rotate_alm(_alm_, inplace=True)
+            _map_ = hp.alm2map(_alm_, nside)
+            del _alm_
+        maps[0] = _map_
+    if "QU" in job.upper():
         hp.almxfl(teb[1], bl_E * pw_P, inplace=True)
         hp.almxfl(teb[2], bl_B * pw_P, inplace=True)
-        maps_ = hp.alm2map(teb, nside)
-        maps['T' in job.upper():] = rot.rotate_map_pixel(maps_)[1:] if coord else maps_[1:]
-        del maps_
+        if coord:
+            emap = hp.alm2map(teb[1], nside)
+            bmap = hp.alm2map(teb[2], nside)
+            elm = hp.map2alm(emap, lmax=lmax)
+            blm = hp.map2alm(bmap, lmax=lmax)
+            rot.rotate_alm(elm, inplace=True)
+            rot.rotate_alm(blm, inplace=True)
+            del (emap, bmap)
+            maps["T" in job.upper() :] = hp.alm2map_spin([elm, blm], nside, 2, lmax)
+        else:
+            maps["T" in job.upper() :] = hp.alm2map_spin(teb[1:], nside, 2, lmax)
     return maps
 
-def get_s4_map(band: str, idx:int, job='TQU'):
+
+def get_s4_map(band: str, idx: int, job="TQU"):
     """Returns CMB-S4 simulated T, Q and U maps for the requested channel
 
-        band(str): s4 channel (e.g. 'SAT_f030')
-        idx(int): simulation index
-        job(str, optional): one of 'T', 'QU' or 'TQU' (default), for temperature-only, pol-only, or all three maps
+    band(str): s4 channel (e.g. 'SAT_f030')
+    idx(int): simulation index
+    job(str, optional): one of 'T', 'QU' or 'TQU' (default), for temperature-only, pol-only, or all three maps
 
-        returns:
-            numpy array of shape (ncomp, npix), with ncomp set by 'job' and npix by the nside of the instrument model
-            CMB maps in uK
+    returns:
+        numpy array of shape (ncomp, npix), with ncomp set by 'job' and npix by the nside of the instrument model
+        CMB maps in uK
 
-     """
-    assert band in list(s4['band']), ('possible bands: ', list(s4['band']))
-    beam, nside = s4.loc[band]['fwhm'], s4.loc[band]['nside']
-    assert beam.unit == units.Unit('arcmin')
+    """
+    assert band in list(s4["band"]), ("possible bands: ", list(s4["band"]))
+    beam, nside = s4.loc[band]["fwhm"], s4.loc[band]["nside"]
+    assert beam.unit == units.Unit("arcmin")
     return _build_maps(idx, beam.value, nside, job=job)
 
 
-def get_lb_map(band: str, idx: int, job='TQU',lmax=1024,coord=['C','G']):
+def get_lb_map(band: str, idx: int, job="TQU", lmax=1024, coord=["C", "G"]):
     """Returns LiteBird simulated T, Q and U maps for the requested channel
 
-        band(str): litebird channel (e.g. 'L1-060')
-        idx(int): simulation index
-        job(str, optional): one of 'T', 'QU' or 'TQU' (default), for temperature-only, pol-only, or all three maps
+    band(str): litebird channel (e.g. 'L1-060')
+    idx(int): simulation index
+    job(str, optional): one of 'T', 'QU' or 'TQU' (default), for temperature-only, pol-only, or all three maps
 
-        returns:
-            numpy array of shape (ncomp, npix), with ncomp set by 'job' and npix by the nside of the instrument model
-            CMB maps in uK
+    returns:
+        numpy array of shape (ncomp, npix), with ncomp set by 'job' and npix by the nside of the instrument model
+        CMB maps in uK
 
-     """
-    assert band in list(lb['tag']), ('possible bands: ', list(lb['tag']))
-    beam, nside = lb.loc[band]['fwhm'], lb.loc[band]['nside']
-    assert beam.unit == units.Unit('arcmin')
-    return _build_maps(idx, beam.value, nside, job=job,lmax=lmax,coord=coord)
+    """
+    assert band in list(lb["tag"]), ("possible bands: ", list(lb["tag"]))
+    beam, nside = lb.loc[band]["fwhm"], lb.loc[band]["nside"]
+    assert beam.unit == units.Unit("arcmin")
+    return _build_maps(idx, beam.value, nside, job=job, lmax=lmax, coord=coord)
