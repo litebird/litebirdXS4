@@ -43,6 +43,24 @@ except:
     print("maps.py: could not read LiteBird instrument model at " + path2lb)
     lb = None
 
+def _slice_alms(teb, lmax_new):
+    """Returns the input teb alms sliced to the new lmax.
+
+    teb(numpy array): input teb alms
+    lmax_new(int): new lmax
+    """
+
+    lmax = hp.Alm.getlmax(len(teb[0]))
+    if lmax_new > lmax:
+        raise ValueError('lmax_new must be smaller or equal to lmax')
+    elif lmax_new == lmax:
+        return teb
+    else:
+        teb_new = np.zeros((3, hp.Alm.getsize(lmax_new)), dtype=teb.dtype)
+        indices_full = hp.Alm.getidx(lmax,*hp.Alm.getlm(lmax_new))
+        indices_new = hp.Alm.getidx(lmax_new,*hp.Alm.getlm(lmax_new))
+        teb_new[:,indices_new] = teb[:,indices_full]
+        return teb_new
 
 def _build_maps(idx, beam_amin: float, nside: int, job="TQU", lmax=4096, coord=None):
     """Returns CMB-S4/LiteBIRD simulated T, Q and U maps.
@@ -75,32 +93,21 @@ def _build_maps(idx, beam_amin: float, nside: int, job="TQU", lmax=4096, coord=N
     pw_T, pw_P = 1.0, 1.0
 
     # load lencmbs and apply the transfer function
-    teb = np.load(path2cmb % idx)
-    ncomp = ("T" in job.upper()) + 2 * ("QU" in job.upper())
+    teb = _slice_alms(np.load(path2cmb%idx),lmax)
+    ncomp = ('T' in job.upper()) + 2 * ('QU' in job.upper())
     maps = np.empty((ncomp, hp.nside2npix(nside)), dtype=float)
-    if "T" in job.upper():
+    if 'T' in job.upper():
         hp.almxfl(teb[0], bl_T * pw_T, inplace=True)
-        _map_ = hp.alm2map(teb[0], nside)
         if coord:
-            _alm_ = hp.map2alm(_map_, lmax=lmax)
-            rot.rotate_alm(_alm_, inplace=True)
-            _map_ = hp.alm2map(_alm_, nside)
-            del _alm_
-        maps[0] = _map_
-    if "QU" in job.upper():
+            rot.rotate_alm(teb[0], inplace=True)
+        maps[0] = hp.alm2map(teb[0], nside)
+    if 'QU' in job.upper():
         hp.almxfl(teb[1], bl_E * pw_P, inplace=True)
         hp.almxfl(teb[2], bl_B * pw_P, inplace=True)
         if coord:
-            emap = hp.alm2map(teb[1], nside)
-            bmap = hp.alm2map(teb[2], nside)
-            elm = hp.map2alm(emap, lmax=lmax)
-            blm = hp.map2alm(bmap, lmax=lmax)
-            rot.rotate_alm(elm, inplace=True)
-            rot.rotate_alm(blm, inplace=True)
-            del (emap, bmap)
-            maps["T" in job.upper() :] = hp.alm2map_spin([elm, blm], nside, 2, lmax)
-        else:
-            maps["T" in job.upper() :] = hp.alm2map_spin(teb[1:], nside, 2, lmax)
+            rot.rotate_alm(teb[1], inplace=True)
+            rot.rotate_alm(teb[2], inplace=True)
+        maps['T' in job.upper():] = hp.alm2map_spin(teb[1:], nside, 2, lmax)
     return maps
 
 
