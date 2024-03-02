@@ -94,19 +94,16 @@ def _build_maps(idx, beam_amin: float, nside: int, job="TQU", lmax=4096, coord=N
 
     # load lencmbs and apply the transfer function
     teb = _slice_alms(np.load(path2cmb%idx),lmax)
+    if coord:
+        rot.rotate_alm(teb, inplace=True)
     ncomp = ('T' in job.upper()) + 2 * ('QU' in job.upper())
     maps = np.empty((ncomp, hp.nside2npix(nside)), dtype=float)
     if 'T' in job.upper():
         hp.almxfl(teb[0], bl_T * pw_T, inplace=True)
-        if coord:
-            rot.rotate_alm(teb[0], inplace=True)
         maps[0] = hp.alm2map(teb[0], nside)
     if 'QU' in job.upper():
         hp.almxfl(teb[1], bl_E * pw_P, inplace=True)
         hp.almxfl(teb[2], bl_B * pw_P, inplace=True)
-        if coord:
-            rot.rotate_alm(teb[1], inplace=True)
-            rot.rotate_alm(teb[2], inplace=True)
         maps['T' in job.upper():] = hp.alm2map_spin(teb[1:], nside, 2, lmax)
     return maps
 
