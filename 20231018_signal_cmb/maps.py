@@ -122,6 +122,8 @@ def get_s4_map(band: str, idx: int, job="TQU"):
     """
     assert band in list(s4["band"]), ("possible bands: ", list(s4["band"]))
     beam, nside = s4.loc[band]["fwhm"], s4.loc[band]["nside"]
+    if nside == 4096: # using a lower default nside for chile wide
+        nside = 2048
     assert beam.unit == units.Unit("arcmin")
     return _build_maps(idx, beam.value, nside, job=job)
 
