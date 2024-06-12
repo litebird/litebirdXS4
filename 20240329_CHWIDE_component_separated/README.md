@@ -26,7 +26,7 @@ There are 3 masks:
 2. `chwide_clip0p3relhits_3degC2apo_NSIDE2048.fits` &rarr; The above region with 3deg apodization. All E-mode maps use this mask. There is no Galactic mask for the NILC E-maps.
 3. `dust-mask-15pc_3pc-apo_NSIDE2048.fits` &rarr; The dust mask masks brightest 15 percent of the sky in polarised dust emission, and an additional 3 percent apodization. This mask is used for the NILC B-maps, in addition to the apodized footprint mask.
 
-For E-maps use mask 2, while for B-maps use mask 2 x mask 3.
+For E-maps use mask 2, while for B-maps use mask 2 x mask 3 (ie. an union mask of masks 2 and 3).
 
 #### Map-naming convention
 NILC E-mode file naming scheme:  
