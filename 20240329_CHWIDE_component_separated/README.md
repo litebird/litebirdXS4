@@ -5,6 +5,16 @@ We provide foreground cleaned CMB maps obtained with NILC for CMB-S4 Chile wide 
 Currently, about 25 realizations are provided for testing purposes. The masks used for the E and B maps are also provided. All maps are at `NSIDE=2048` 
 and `lmax=4096`, with 2.1 arcmin gaussian beam. The current maps are only with the PySM medium complexity foreground model.
 
+#### Input simulations and NILC pipeline
+The input maps are simulated with the following components:
+* Input foregrounds are combined medium complexity foregrounds from `combined_foregrounds_mediumcomplexity`.
+* Fetch CMB realizations using: `maps.get_s4_map`.
+* Fetch CHWIDE noise maps using: `chwide_map.noise.get_sim_tqumap`.
+  
+These three components are coadded to produce input simulations for the NILC pipeline. Some details of the NILC pipeline and limited validation of NILC 
+E-mode maps can be found [here](https://docs.google.com/presentation/d/1dkzO31pXrOUE63-T2z7nT-9avby-eo7r5J2aDqd642k/edit?usp=drive_link).
+
+
 #### Data availability
 They on the CMB-S4xLiteBIRD shared space on NERSC: `/global/cfs/cdirs/cmbs4xlb/v1/component_separated/chwide`
 The E-maps are in `nilc_Emaps/fits` subdir, the B-maps are in `nilc_Bmaps/fits` subdir, the common masks are in `masks_common`.
