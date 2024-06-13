@@ -7,12 +7,11 @@ and `lmax=4096`, with 2.1 arcmin gaussian beam. The current maps are only with t
 
 #### Input simulations and NILC pipeline
 The input maps are simulated with the following components:
-* Input foregrounds are combined medium complexity foregrounds from `combined_foregrounds_mediumcomplexity`.
+* Foregrounds are taken from `combined_foregrounds_mediumcomplexity`. Documentation for these foreground maps can be found [here](https://github.com/CMB-S4/s4mapbasedsims/tree/main/202305_dc0).
 * Fetch CMB realizations using: `maps.get_s4_map`.
 * Fetch CHWIDE noise maps using: `chwide_map.noise.get_sim_tqumap`.
   
-These three components are coadded to produce input simulations for the NILC pipeline. Some details of the NILC pipeline and limited validation of NILC 
-E-mode maps can be found [here](https://docs.google.com/presentation/d/1dkzO31pXrOUE63-T2z7nT-9avby-eo7r5J2aDqd642k/edit?usp=drive_link).
+These three components are coadded to produce input simulations for the NILC pipeline (unreleased massively parallel NILC implementation). Some details of the NILC pipeline and limited validation of the NILC E-mode maps can be found [here](https://docs.google.com/presentation/d/1dkzO31pXrOUE63-T2z7nT-9avby-eo7r5J2aDqd642k/edit?usp=drive_link).
 
 
 #### Data availability
