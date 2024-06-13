@@ -2,7 +2,7 @@
 
 Louis Legrand (louis.legrand@outlook.com)
 
-The lensing fields are reconstructed from the simulated chwide component separated maps, stored in `/global/cfs/cdirs/cmbs4xlb/v1/component_separated/chwide`
+The lensing fields are reconstructed from the simulated chwide component separated maps, stored in `/global/cfs/cdirs/cmbs4xlb/v1/component_separated/chwide`, see the [documentation about the component separated Chile Wide map](https://github.com/litebird/litebirdXS4/tree/master/20240329_CHWIDE_component_separated)
 
 The reconstructed lensing plm's are stored in NERSC, in the folder: `/global/cfs/cdirs/cmbs4xlb/v1/lensingrec/`.
 
