@@ -7,7 +7,7 @@ The lensing fields are reconstructed from the simulated chwide component separat
 The reconstructed lensing plm's are stored in NERSC, in the folder: `/global/cfs/cdirs/cmbs4xlb/v1/lensingrec/`.
 
 The folder `chwide_qe_v1` contains the estimated lensing fields, reconstructed with a quadratic estimator (QE). 
-The QE's are computed with the plancklens code https://github.com/carronj/plancklens . 
+The QE's are computed with the [plancklens code](https://github.com/carronj/plancklens) (using the master branch version as of May 2024) . 
 
 
 The naming convention is 
@@ -35,3 +35,13 @@ python  $HOME/plancklens/examples/run_qlms.py  $HOME/litebirdXS4/20240531_recons
 The jupyter notebook `qe_rec_chwide.ipynb` shows some manipulations of the reconstructed lensing fields, as well as estimates of the noise biases of the QE power spectra (N0 and N1 biases).
 
 There are some plots in the slides `QE_S4xLitebird.pdf`.
+
+## Update v1.1, June 2024
+
+Updated lensing maps are stored in the folder `chwide_qe_v1.1`.
+The update concerns the CMB inverse variance filtering scales used in the QE, in particular to avoid internal delensing bias on the B map. The new scale cut is:
+- Temperature: lmin=30, lmax=4096
+- E modes: lmin=30, lmax=4096
+- Bmodes: lmin=200, lmax=4096
+
+The parameter file `param_chwide_qe_lminB200.py` has been used for the plancklens reconstruction. 
