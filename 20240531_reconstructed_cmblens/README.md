@@ -7,7 +7,7 @@ The lensing fields are reconstructed from the simulated chwide component separat
 The reconstructed lensing plm's are stored in NERSC, in the folder: `/global/cfs/cdirs/cmbs4xlb/v1/lensingrec/`.
 
 The folder `chwide_qe_v1` contains the estimated lensing fields, reconstructed with a quadratic estimator (QE). 
-The QE's are computed with the plancklens code https://github.com/carronj/plancklens . 
+The QE's are computed with the [plancklens code](https://github.com/carronj/plancklens) (using the master branch version as of May 2024) . 
 
 
 The naming convention is 
