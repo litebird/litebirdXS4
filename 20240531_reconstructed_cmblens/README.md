@@ -45,3 +45,8 @@ The update concerns the CMB inverse variance filtering scales used in the QE, in
 - Bmodes: lmin=200, lmax=4096
 
 The parameter file `param_chwide_qe_lminB200.py` has been used for the plancklens reconstruction. 
+
+## Update August 2024
+
+The folder `chwide_qe_v1.1` now contains the semi analytical N0 bias (normalized) for each simulation. See Planck 2015 gravitational lensing paper, equation A30.
+This folder also contains the fiducial N1 bias.
