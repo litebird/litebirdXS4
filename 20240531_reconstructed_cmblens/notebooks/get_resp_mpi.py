@@ -47,6 +47,7 @@ nsims = 500
 mc_sims = np.arange(nsims)
 fsky = np.mean(param_file.ivfs.get_fmask())
 
+recache = False
 
 def get_resp_eff(k, idx):
     if not cacher.is_cached(fn_ckk_in(idx)) or not cacher.is_cached(fn_ckk_pxin(idx)) or recache:
@@ -66,7 +67,6 @@ def get_resp_eff(k, idx):
         cacher.cache(fn_ckk_pxin(idx), cpp_qexin)
         # return cpp_qexin
 
-recache = False
 
 for idx in mc_sims[mpi.rank::mpi.size]:
     get_resp_eff(k, idx)
