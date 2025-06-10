@@ -49,8 +49,9 @@ The parameter file `param_chwide_qe_lminB200.py` has been used for the plancklen
 ## Update August 2024, v1.1
 
 The folder `chwide_qe_v1.1` now contains the semi analytical N0 bias (normalized) for each simulation. See Planck 2015 gravitational lensing paper, equation A30.
-This folder also contains the fiducial N1 bias.
+The naming convention is `Nlzero_semianalytic_xxxx.txt`
 
+This folder also contains the fiducial N1 bias, in the file `Nlone_fiducial.txt`.
 
 ## Update June 2025, v2
 
