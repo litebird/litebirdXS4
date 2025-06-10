@@ -4,7 +4,7 @@ Parameter file for S4 chwide simulations
 For now we focus on the QE only, 
 but in principle this param file can easly be extended to the MAP estimator.
 
-Written by Louis Legrand
+Written by Louis Legrand, 2025-06-04
 """
 
 import os
@@ -29,7 +29,7 @@ if module_path not in sys.path:
 import chwide_sims
 
 
-suffix = 'chwide_lminB200' # descriptor to distinguish this parfile from others...
+suffix = 'chwide_lminB200_v2' # descriptor to distinguish this parfile from others...
 TEMP = opj(os.environ['SCRATCH'], 'lenscarfrecs', suffix)
 
 
@@ -44,8 +44,8 @@ lmax_cmb_len = sims.lmax # = 4096
 # Here we add together the E and B masks 
 # In practice E maps have a different mask as the B one, not sure if we can have a different mask for each
 
-mask_path = '/global/cfs/cdirs/cmbs4xlb/v1/component_separated/chwide/masks_common'
-masks = [opj(mask_path, 'dust-mask-15pc_3pc-apo_NSIDE2048.fits'), opj(mask_path, 'chwide_clip0p3relhits_3degC2apo_NSIDE2048.fits')]
+mask_path = '/global/cfs/cdirs/cmbs4xlb/v1/component_separated/chwide/masks'
+masks = [opj(mask_path, 'dust_mask_10pc-9dsmooth_3dC2_fgres_nside2048.fits'), opj(mask_path, 'chwide_clip0p3relhits_3degC2apo_NSIDE2048.fits')]
 
 
 # ----------------- Lensing reconstruction info
@@ -72,8 +72,8 @@ cls_grad = utils.camb_clfile(opj(cls_path, 'FFP10_wdipole_gradlensedCls.dat'))
 cls_weight = cls_grad # The weights in the QE are the grad cls
 
 # Fiducial model of the transfer function
-transf_elm   =  hp.gauss_beam(beam/180 / 60 * np.pi, lmax=lmax_ivf) #* (np.arange(lmax_ivf + 1) >= lmin_elm)
 transf_tlm   =  hp.gauss_beam(beam/180 / 60 * np.pi, lmax=lmax_ivf) #* (np.arange(lmax_ivf + 1) >= lmin_tlm)
+transf_elm   =  hp.gauss_beam(beam/180 / 60 * np.pi, lmax=lmax_ivf) #* (np.arange(lmax_ivf + 1) >= lmin_elm)
 transf_blm   =  hp.gauss_beam(beam/180 / 60 * np.pi, lmax=lmax_ivf) #* (np.arange(lmax_ivf + 1) >= lmin_blm)
 
 # Isotropic approximation to the filtering (used eg for response calculations)

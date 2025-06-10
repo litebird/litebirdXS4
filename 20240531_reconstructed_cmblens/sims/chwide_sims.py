@@ -27,24 +27,24 @@ class chwide_nilc:
     def __init__(self):
         chwide_dir = '/global/cfs/cdirs/cmbs4xlb/v1/component_separated/chwide'
 
-        self.emaps = opj(chwide_dir, 'nilc_Emaps/fits', 'NILC_CMB-S4_CHWIDE-E%s_NSIDE2048_fwhm2.1_CHLAT-only_medium_cos-NSIDE2048-lmax4096_mc0%02d.fits' )
-        
-        self.bmaps = opj(chwide_dir, 'nilc_Bmaps/fits', 'NILC_CMB-S4_CHWIDE-B%s_NSIDE2048_fwhm2.1_CHLAT-only_medium_cos-NSIDE2048-lmax4096_galmask_mc0%02d.fits')
+        # self.emaps = opj(chwide_dir, 'nilc_Emaps/fits', 'NILC_CMB-S4_CHWIDE-E%s_NSIDE2048_fwhm2.1_CHLAT-only_medium_cos-NSIDE2048-lmax4096_mc0%02d.fits' )
+        # self.bmaps = opj(chwide_dir, 'nilc_Bmaps/fits', 'NILC_CMB-S4_CHWIDE-B%s_NSIDE2048_fwhm2.1_CHLAT-only_medium_cos-NSIDE2048-lmax4096_galmask_mc0%02d.fits')
 
+        self.ebmaps = opj(chwide_dir, 'nilc_EBmaps', 'NILC_CMB-S4_CHWIDE-EB%s_NSIDE2048_fwhm2.1_CHLAT-only_medium_NSIDE2048-lmax4096_mc%03d.fits')
         self.lmax = 4096
         self.nside = 2048
 
     def hashdict(self):
-        return {'emaps':self.emaps, 'bmaps':self.bmaps}
+        return {'ebmaps':self.ebmaps}
 
     def get_sim_elm(self, idx, map_type='map'):
         # assert map_type in ['map', 'fg', 'noise']
-        emap =  hp.read_map(self.emaps % (map_type, idx))
+        emap =  hp.read_map(self.ebmaps % (map_type, idx), field=0)
         return hp.map2alm(emap, lmax=self.lmax)
     
     def get_sim_blm(self, idx, map_type='map'):
         # assert map_type in ['map', 'fg', 'noise']
-        bmap =  hp.read_map(self.bmaps % (map_type, idx))
+        bmap =  hp.read_map(self.ebmaps % (map_type, idx), field=1)
         return hp.map2alm(bmap, lmax=self.lmax)
 
 
