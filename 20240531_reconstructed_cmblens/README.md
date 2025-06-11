@@ -46,14 +46,14 @@ The update concerns the CMB inverse variance filtering scales used in the QE, in
 
 The parameter file `param_chwide_qe_lminB200.py` has been used for the plancklens reconstruction. 
 
-## Update August 2024, v1.1
+## Update August 2024
 
 The folder `chwide_qe_v1.1` now contains the semi analytical N0 bias (normalized) for each simulation. See Planck 2015 gravitational lensing paper, equation A30.
 The naming convention is `Nlzero_semianalytic_xxxx.txt`
 
 This folder also contains the fiducial N1 bias, in the file `Nlone_fiducial.txt`.
 
-## Update June 2025, v2
+## Update v2, June 2025
 
 Updated lensing maps are stored in the folder `/global/cfs/cdirs/cmbs4xlb/v1/lensingrec/chwide_qe_v2`.
 This update use the new 500 CMB simulations from Shamik Ghosh, stored in `/global/cfs/cdirs/cmbs4xlb/v1/component_separated/chwide/nilc_EBmaps`. The new CMB maps are `NILC_CMB-S4_CHWIDE-EBmap_NSIDE2048_fwhm2.1_CHLAT-only_medium_NSIDE2048-lmax4096_mcxxx.fits` 
