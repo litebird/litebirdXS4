@@ -63,4 +63,4 @@ The reconstruction is performed with the plancklens parameter file `20240531_rec
 I now provide the polarization only QE maps normalized by the fiducial response as well as normalised by the effective response. The fiducial one are of the form `plm_rfid_p_p_xxxx.fits` while the effective ones are of the form `plm_reff_p_p_xxxx.fits`. I give as well the semi-analytical N0 normalized with the fiducial or with the effective response. The fiducial and effective response differe by around ~5%. 
 
 I also pushed the notebook in `20240531_reconstructed_cmblens/notebooks/qe_rec_chwide_v2.ipynb` to show how to load the maps, and compute the mean field from the simulations. 
-
+The executed notebook with figures is available [here](https://gist.github.com/louisl3grand/8dda444d330a409eb90d69916d197152).
