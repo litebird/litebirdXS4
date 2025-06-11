@@ -14,7 +14,7 @@ class cmb_unl_ffp10:
         Note: unlensed blm are hdu=3 of these arrays, but are identically zero
 
     """
-    def __init__(self, aberration:"tuple[float, float, float]"or None=None, verbose=True):
+    def __init__(self, aberration:tuple[float, float, float]or None=None, verbose=True):
         if aberration is None:
             aberration = aberration_lbv_ffp10
 
