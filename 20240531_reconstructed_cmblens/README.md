@@ -53,3 +53,14 @@ The naming convention is `Nlzero_semianalytic_xxxx.txt`
 
 This folder also contains the fiducial N1 bias, in the file `Nlone_fiducial.txt`.
 
+## Update v2, June 2025
+
+Updated lensing maps are stored in the folder `/global/cfs/cdirs/cmbs4xlb/v1/lensingrec/chwide_qe_v2`.
+This update use the new 500 CMB simulations from Shamik Ghosh, stored in `/global/cfs/cdirs/cmbs4xlb/v1/component_separated/chwide/nilc_EBmaps`. The new CMB maps are `NILC_CMB-S4_CHWIDE-EBmap_NSIDE2048_fwhm2.1_CHLAT-only_medium_NSIDE2048-lmax4096_mcxxx.fits` 
+
+The reconstruction is performed with the plancklens parameter file `20240531_reconstructed_cmblens/params/param_chwide_qe_lminB200_v2.py`. I used the apodized masks `dust_mask_10pc-9dsmooth_3dC2_fgres_nside2048.fits ` and `chwide_clip0p3relhits_3degC2apo_NSIDE2048.fits` for the lensing reconstruction. The masks are available in `/global/cfs/cdirs/cmbs4xlb/v1/component_separated/chwide/masks`
+
+I now provide the polarization only QE maps normalized by the fiducial response as well as normalised by the effective response. The fiducial one are of the form `plm_rfid_p_p_xxxx.fits` while the effective ones are of the form `plm_reff_p_p_xxxx.fits`. I give as well the semi-analytical N0 normalized with the fiducial or with the effective response. The fiducial and effective response differe by around ~5%. 
+
+I also pushed the notebook in `20240531_reconstructed_cmblens/notebooks/qe_rec_chwide_v2.ipynb` to show how to load the maps, and compute the mean field from the simulations. 
+The executed notebook with figures is available [here](https://gist.github.com/louisl3grand/8dda444d330a409eb90d69916d197152).

@@ -3,6 +3,8 @@ Parameter file for S4 chwide simulations
 
 For now we focus on the QE only, 
 but in principle this param file can easly be extended to the MAP estimator.
+
+Written by Louis Legrand
 """
 
 import os
